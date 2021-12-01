@@ -6,26 +6,25 @@ song_table_drop = "DROP TABLE IF EXISTS songs;"
 artist_table_drop = "DROP TABLE IF EXISTS artists;"
 time_table_drop = "DROP TABLE IF EXISTS time;"
 
-# CREATE TABLES
-
 songplay_table_create = (""" create table if not exists songplay
 (
-    ts          timestamp,
-    "userId"    integer,
+    songplay_id SERIAL PRIMARY KEY NOT NULL,
+    ts bigint NOT NULL,
+    userId    integer,
     level       varchar,
-    "songId"    integer,
-    "artistId"  integer,
-    "sessionId" integer,
+    songId    integer,
+    artistId  integer,
+    sessionId integer,
     location    varchar,
-    "userAgent" varchar
+    userAgent varchar
 );
 """)
 
 user_table_create = ("""create table if not exists users
 (
-    "userId"    integer not null,
-    "firstName" varchar,
-    "lastName"  varchar,
+    userId    integer PRIMARY KEY,
+    firstName varchar,
+    lastName  varchar,
     gender      varchar,
     level       varchar
 );
@@ -43,7 +42,7 @@ song_table_create = ("""create table if not exists songs
 
 artist_table_create = (""" create table if not exists artists
 (
-    artist_id        integer not null,
+    artist_id        varchar not null,
     artist_name      varchar,
     artist_location  varchar,
     artist_latitude  double precision,
@@ -72,8 +71,11 @@ songplay_table_insert = ("""INSERT INTO songplay
 """)
 
 user_table_insert = ("""INSERT INTO users
-    (useId, firstName, lastName, gender, level)
+    (userId, firstName, lastName, gender, level)
     VALUES (%s, %s, %s, %s, %s)
+    ON CONFLICT(userId)
+    DO 
+        UPDATE SET level = EXCLUDED.level
 """)
 
 song_table_insert = ("""INSERT INTO songs
@@ -98,6 +100,11 @@ time_table_insert = ("""INSERT INTO time
 # FIND SONGS
 
 song_select = ("""
+    SELECT s.song_id, a.artist_id 
+        FROM songs s JOIN artists a ON s.artist_id= a.artist_id
+        WHERE s.title = %s 
+         AND a.artist_id = %s 
+         AND s.duration = %s
 """)
 
 # QUERY LISTS
