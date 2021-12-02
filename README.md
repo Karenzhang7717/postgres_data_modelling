@@ -28,6 +28,12 @@ ETL Pipeline:
 - Create users, time dimension tables, from extracting log_data
 - Create the fact table, songplay, from joining and selecting columns from the dimension tables
 
+​		
+
+**ERD Diagram:**
+
+![]()
+
 **How to execute:**
 
 1. Install requirements from requirements.txt, and create a database called sparkifydb with owner to "student"
