@@ -70,6 +70,7 @@ songplay_table_insert = ("""INSERT INTO songplay
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
 """)
 
+# in case there are duplicated userId, update their level with the most recent one
 user_table_insert = ("""INSERT INTO users
     (userId, firstName, lastName, gender, level)
     VALUES (%s, %s, %s, %s, %s)
