@@ -30,9 +30,8 @@ ETL Pipeline:
 
 ​		
 
-**ERD Diagram:**
+**ERD Diagram:**![sparkifydb_erd](https://user-images.githubusercontent.com/64809520/144441165-5bfda6d7-34e8-47b4-a2c1-81890553a2e9.png)
 
-![ERD Diagram][sparkifydb_erd.png]
 
 **How to execute:**
 
