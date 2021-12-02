@@ -10,7 +10,7 @@ songplay_table_create = (""" create table if not exists songplay
 (
     songplay_id SERIAL PRIMARY KEY NOT NULL,
     ts bigint NOT NULL,
-    userId    integer,
+    userId    integer NOT NULL,
     level       varchar,
     songId    integer,
     artistId  integer,
@@ -32,7 +32,7 @@ user_table_create = ("""create table if not exists users
 
 song_table_create = ("""create table if not exists songs
 (
-    song_id   varchar not null,
+    song_id   varchar PRIMARY KEY NOT NULL,
     title     varchar,
     artist_id varchar,
     year      integer,
@@ -42,7 +42,7 @@ song_table_create = ("""create table if not exists songs
 
 artist_table_create = (""" create table if not exists artists
 (
-    artist_id        varchar not null,
+    artist_id        varchar PRIMARY KEY NOT NULL,
     artist_name      varchar,
     artist_location  varchar,
     artist_latitude  double precision,
@@ -52,7 +52,7 @@ artist_table_create = (""" create table if not exists artists
 
 time_table_create = ("""create table if not exists time
 (
-    ts        timestamp,
+    ts        timestamp PRIMARY KEY NOT NULL,
     hour      integer,
     day       integer,
     week      integer,
@@ -81,6 +81,7 @@ user_table_insert = ("""INSERT INTO users
 song_table_insert = ("""INSERT INTO songs
     (song_id, title, artist_id, year, duration)
     VALUES (%s, %s, %s, %s, %s)
+    ON CONFLICT (song_id) DO NOTHING
 """)
 
 artist_table_insert = ("""INSERT INTO artists(
@@ -89,12 +90,14 @@ artist_table_insert = ("""INSERT INTO artists(
     artist_location,
     artist_latitude,
     artist_longitude)
-VALUES(%s, %s, %s, %s, %s)
+    VALUES (%s, %s, %s, %s, %s)
+    ON CONFLICT (artist_id) DO NOTHING
 """)
 
 time_table_insert = ("""INSERT INTO time
     (ts, hour, day, week, month, year, dayofweek)
     VALUES (%s, %s, %s, %s, %s, %s, %s)
+    ON CONFLICT (ts) DO NOTHING
 """)
 
 # FIND SONGS
