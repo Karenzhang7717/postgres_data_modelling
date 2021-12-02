@@ -32,7 +32,7 @@ ETL Pipeline:
 
 **ERD Diagram:**
 
-![alt text][https://github.com/Karenzhang7717/postgres_data_modelling/blob/main/sparkifydb_erd.png]()
+![ERD Diagram][sparkifydb_erd.png]
 
 **How to execute:**
 
